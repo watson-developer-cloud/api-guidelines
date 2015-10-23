@@ -2,6 +2,33 @@
 
 These API guidelines are used to guide design of the IBM's Watson Developer Cloud services, but may provide insight for other REST APIs as well.
 
+- [REST API Guidelines](#rest-api-guidelines)
+	- [Naming](#naming)
+	- [JSON vs CSV vs XML](#json-vs-csv-vs-xml)
+	- [JSON Structure](#json-structure)
+		- [Avoid Anonymous Arrays](#avoid-anonymous-arrays)
+		- [Avoid Dynamic Keys](#avoid-dynamic-keys)
+		- [Pretty-Printed Responses](#pretty-printed-responses)
+	- [Multiple Languages](#multiple-languages)
+	- [User-Created Resources](#user-created-resources)
+		- [Resource IDs](#resource-ids)
+	- [Asynchronous Operations](#asynchronous-operations)
+	- [Multi-lingual Support](#multi-lingual-support)
+	- [Dates](#dates)
+	- [Errors](#errors)
+		- [Error Status Codes](#error-status-codes)
+		- [Error JSON Objects](#error-json-objects)
+	- [`GET` vs `POST` vs `PUT`](#get-vs-post-vs-put)
+	- [Common API Problems](#common-api-problems)
+		- [`GET` vs `POST` vs `PUT`](#get-vs-post-vs-put)
+		- [Naming](#naming)
+		- [Anonymous JSON arrays](#anonymous-json-arrays)
+	- [Watson Developer Cloud Guidelines](#watson-developer-cloud-guidelines)
+		- [Bluemix Lifecycle](#bluemix-lifecycle)
+		- [URL Basepaths](#url-basepaths)
+	- [Other API Design Resources](#other-api-design-resources)
+
+
 ## Naming
 
 The words used should match the users' terminology.
