@@ -117,9 +117,10 @@ A "language" field in JSON input can also be supported, and should take preceden
 
 ## Dates
 
-Dates returned in responses should be formatted like: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`, for example `2015-08-24T18:42:25.324Z`. (The Z indicates that the timezone is UTC -- return dates should use the UTC timezone, with the Z at the end.)
+Dates returned in responses should be formatted like: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`, for example `2015-08-24T18:42:25.324Z`.  All date/times returned in responses should be in the UTC time zone (that is why the 'Z' is required literally).
 
-Date taken as input should be formatted the same, with the seconds and time fields optional (for example: `2015-08-24` or `2015-08-24T18:42`). Input dates should support specified time-zones (for example ,`2015-08-24T18:42:25.324-0400`)
+Date taken as input should be formatted the same, with the seconds and time fields optional (for example: `2015-08-24` or `2015-08-24T18:42`). Date / times taken as input should be flexible in the time zones they accept (any valid time zone should be accepted), for example: `2015-08-24T18:42:25.324-0400`.
+
 
 ## Errors
 
