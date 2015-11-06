@@ -13,7 +13,7 @@ We aim for https://github.com/watson-developer-cloud to be the central repositor
 Relevant projects should follow the established conventions for naming of projects, packages, class names and other code artifacts. For example:
 
 * The word “Watson” is included in the organization name and should not be in individual project names
-* We avoid abbreviations and using dash separators for words in project names (so avoid “sst”, “movieapp”, etc.)
+* We avoid abbreviations and use dash separators for words in project names (so avoid “sst”, “movieapp”, etc.)
 
 In additional to naming guidelines, we also have overall code quality guidelines: Projects hosted in the Watson Developer Cloud GitHub should follow best practices in terms of language conventions, packaging, licensing, code style and readability.
 
