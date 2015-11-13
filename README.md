@@ -25,9 +25,10 @@ These API guidelines are used to guide design of the IBM's Watson Developer Clou
 		- [Anonymous JSON arrays](#anonymous-json-arrays)
 	- [Watson Developer Cloud Guidelines](#watson-developer-cloud-guidelines)
 		- [Bluemix Lifecycle](#bluemix-lifecycle)
+		- [Metadata](#metadata)
 		- [URL Basepaths](#url-basepaths)
 	- [Other API Design Resources](#other-api-design-resources)
-
+    
 
 ## Naming
 
@@ -193,6 +194,10 @@ When input or output JSON structures contain top level anonymous arrays, for exa
 ### Bluemix Lifecycle
 
 Provisioning or binding a service in Bluemix should not automatically create resources within the service, and users shouldn't need to create two instances of a service on Bluemix to obtain more resources. Instead, creation and deletion of resources should be through REST APIs. (Deprovisioning a service should remove any resources that are no longer accessible.)
+
+### Metadata
+
+To allow developers to keep track of metadata associated with their REST calls (like customer ids, testing flags), services should accept the header `X-Watson-Metadata`, and echo this as a response header. Developres are encouraged to use semi-colon separated values and name=value pairs, such as: `X-Watson-Metadata: customer_id=1242;testing;platform=iOS`
 
 ### URL Basepaths
 
