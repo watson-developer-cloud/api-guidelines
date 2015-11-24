@@ -21,9 +21,11 @@ These API guidelines are used to guide design of the IBM's Watson Developer Clou
 	- [`GET` vs `POST` vs `PUT`](#get-vs-post-vs-put)
 	- [Common API Problems](#common-api-problems)
 		- [`GET` vs `POST` vs `PUT`](#get-vs-post-vs-put)
+		- [Quoted numbers](#quoted-numbers)
 		- [Naming](#naming)
 		- [Anonymous JSON arrays](#anonymous-json-arrays)
 	- [Watson Developer Cloud Guidelines](#watson-developer-cloud-guidelines)
+	- [Versioning](#versioning)
 		- [Bluemix Lifecycle](#bluemix-lifecycle)
 		- [Metadata](#metadata)
 		- [URL Basepaths](#url-basepaths)
@@ -135,9 +137,9 @@ If the asychronous operation results are meant to be ephemeral, instead of a per
 
 Language codes should be specified in input and output as "en", "en-US". Left unspecified the language should default to "en".
 
-Language codes without country dialects ("en", "es") should use a default dialect for that language ("en-US", "es-ES"), if there are multiple dialects available or the single available language model is dialect specific. The response should include the language that was used, seperate from the language that was specified. (Exception: Chinese should require a dialect to differentiate between "zh-CN" and "zh-TW", and not provide a default for "zh".)
+Language codes without country dialects ("en", "es") should use a default dialect for that language ("en-US", "es-ES"), if there are multiple dialects available or the single available language model is dialect specific. The response should include the language that was used, separate from the language that was specified. (Exception: Chinese should require a dialect to differentiate between "zh-CN" and "zh-TW", and not provide a default for "zh".)
 
-Dialects that don't have a direct match should match more generic or default models, when the models used are marked as supporting the whole language code. For example, "en-GB" could match an "en" or "en-US" model that was marked as supporting en-*.
+Dialects that don't have a direct match should match more generic or default models, when the models used are marked as supporting the whole language code. For example, "en-GB" could match an "en" or "en-US" model that was marked as supporting en-\*.
 
 The standard http header [content-language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.12) should be supported to specify the input language.
  
@@ -148,7 +150,6 @@ A "language" field in JSON input can also be supported, and should take preceden
 Dates returned in responses should be formatted like: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`, for example `2015-08-24T18:42:25.324Z`.  All date/times returned in responses should be in the UTC time zone (that is why the 'Z' is required literally).
 
 Date taken as input should be formatted the same, with the seconds and time fields optional (for example: `2015-08-24` or `2015-08-24T18:42`). Date / times taken as input should be flexible in the time zones they accept (any valid time zone should be accepted), for example: `2015-08-24T18:42:25.324-0400`.
-
 
 ## Errors
 
@@ -179,6 +180,10 @@ Examples:
 
 Are all `GET` methods safe, and do `POST` calls need to be `POST`?
 
+### Quoted numbers
+
+Are any of the numeric fields accidentally returned as strings? (`"value": "0.923"` instead of `"value": 0.923`)
+
 ### Naming
 
 Do all identifiers (resource names, parameter names, JSON field names) use snake_case and not use acronyms or abbreviations?
@@ -191,13 +196,19 @@ When input or output JSON structures contain top level anonymous arrays, for exa
 
 (This part of the guidelines are only applicable to IBM Watson's Developer Cloud Services.)
 
+## Versioning
+
+Services should include a major version in the path (`/api/v1/`) and a minor version as a required query parameter that takes a date: `?version=2015-11-24` (inspired by the Foursquare model of date-versioning). This minor version can then be used to control the behavior of minor breaking changes, so that when an output field name, status code, or other change is made developers code is not affected until they update the version in their code. (Changes to underlying models are not considered breaking and are not controlled by the version parameter.)
+
+Developers should never pass the current date as a version, and should instead use the latest version available when writing code and periodically check for changes and update their code and version to take advantage of them.
+
 ### Bluemix Lifecycle
 
 Provisioning or binding a service in Bluemix should not automatically create resources within the service, and users shouldn't need to create two instances of a service on Bluemix to obtain more resources. Instead, creation and deletion of resources should be through REST APIs. (Deprovisioning a service should remove any resources that are no longer accessible.)
 
 ### Metadata
 
-To allow developers to keep track of metadata associated with their REST calls (like customer ids, testing flags), services should accept the header `X-Watson-Metadata`, and echo this as a response header. Developres are encouraged to use semi-colon separated values and name=value pairs, such as: `X-Watson-Metadata: customer_id=1242;testing;platform=iOS`
+To allow developers to keep track of metadata associated with their REST calls (like customer ids, testing flags), services should accept the header `X-Watson-Metadata`, and echo this as a response header. Developers are encouraged to use semi-colon separated values and name=value pairs, such as: `X-Watson-Metadata: customer_id=1242;testing;platform=iOS`
 
 ### URL Basepaths
 
