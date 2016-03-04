@@ -250,3 +250,5 @@ https://gateway.watsonplatform.net/language-translation/api/
 [Best Practices for Designing a Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) - Overview of basic REST API design
 
 [18F API Standards](https://github.com/18f/api-standards) - REST API guidelines from Whitehouse technology team
+
+[Move Fast, Don't Break Your API](http://www.heavybit.com/library/video/2014-09-30-amber-feng) - Talk about Stripe's use of version dates
