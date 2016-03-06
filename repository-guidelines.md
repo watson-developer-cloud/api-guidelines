@@ -1,4 +1,4 @@
-#Watson Developer Cloud GitHub Repository Guidelines
+# Watson Developer Cloud GitHub Repository Guidelines
 
 (These guidelines are for internal IBM teams looking to host projects on this GitHub page. We host the guidelines publicly here to give developers an idea of what to expect from our projects.)
 
@@ -13,9 +13,9 @@ We aim for https://github.com/watson-developer-cloud to be the central repositor
 Relevant projects should follow the established conventions for naming of projects, packages, class names and other code artifacts. For example:
 
 * The word “Watson” is included in the organization name and should not be in individual project names
-* We avoid abbreviations and use dash separators for words in project names (so avoid “sst”, “movieapp”, etc.)
+* **We avoid abbreviations** and use dash separators for words in project names (so avoid “sst”, “movieapp”, etc.)
 
-In additional to naming guidelines, we also have overall code quality guidelines: Projects hosted in the Watson Developer Cloud GitHub should follow best practices in terms of language conventions, packaging, licensing, code style and readability.
+In additional to naming guidelines, we also have overall [code quality guidelines](code-style.md): Projects hosted in the Watson Developer Cloud GitHub should follow best practices in terms of language conventions, packaging, licensing, code style and readability.
 
 To maintain this quality, review each project before adding it — you can send a link to an internally hosted project to [germanatt@us.ibm.com](mailto:germanatt@us.ibm.com) and [jsstylos@us.ibm.com] (mailto:jsstylos@us.ibm.com) and can expect a list of suggestions, especially related to naming.
 
