@@ -35,9 +35,11 @@ We use [airbnb](https://github.com/airbnb/javascript) guidelines. Specially 2 sp
 
 ## Python
 
-We follow the [PEP8 style guide for Python](http://www.python.org/dev/peps/pep-0008/) with a few modifications like 4 spaces -- never tabs -- for indentation. **This is a strict rule and ignoring this can (has) cause(d) bugs.**
+We follow the [PEP8 style guide for Python](http://www.python.org/dev/peps/pep-0008/) with a few modifications like 4 spaces -- never tabs -- for indentation.  
+**This is a strict rule and ignoring this can (has) cause(d) bugs.**
 
-`pylint` will help you check that you are not breaking the rule. We have some checks that are disable like 80 characters max for line length.
+`pylint` will help you check that you are not breaking the rules.  
+We have some checks that are disable like 80 characters max for line length.
 
 ```none
 pylint . --disable=F0401,E0611,E1124,E1004,C0111,I0011,I0012,W0704,W0142,W0212,W0232,W0613,W0702,R0201,W0614,R0914,R0912,R0915,R0913,R0903,R0904,R0801,C0301
