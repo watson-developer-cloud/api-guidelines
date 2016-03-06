@@ -44,3 +44,8 @@ We have some checks that are disable like 80 characters max for line length.
 ```none
 pylint . --disable=F0401,E0611,E1124,E1004,C0111,I0011,I0012,W0704,W0142,W0212,W0232,W0613,W0702,R0201,W0614,R0914,R0912,R0915,R0913,R0903,R0904,R0801,C0301
 ```
+
+### Docstrings
+
+All non-trivial methods should have docstrings. Docstrings should follow guidelines here: [PEP257](http://www.python.org/dev/peps/pep-0257/). For more examples, see the [Google style guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html?showone=Comments#Comments) around docstrings.
+
