@@ -2,6 +2,10 @@
 
 These API guidelines are used to guide design of the IBM's Watson Developer Cloud services, but may provide insight for other REST APIs as well.
 
+> We also have a [code-style](code-style.md) and [repository guidelines](repository-guidelines.md), take a look 😎
+
+## Table of Content
+
 - [REST API Guidelines](#rest-api-guidelines)
 	- [Naming](#naming)
 	- [JSON vs CSV vs XML](#json-vs-csv-vs-xml)
@@ -30,7 +34,7 @@ These API guidelines are used to guide design of the IBM's Watson Developer Clou
 		- [Metadata](#metadata)
 		- [URL Basepaths](#url-basepaths)
 	- [Other API Design Resources](#other-api-design-resources)
-    
+
 
 ## Naming
 
@@ -142,7 +146,7 @@ Language codes without country dialects ("en", "es") should use a default dialec
 Dialects that don't have a direct match should match more generic or default models, when the models used are marked as supporting the whole language code. For example, "en-GB" could match an "en" or "en-US" model that was marked as supporting en-\*.
 
 The standard http header [content-language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.12) should be supported to specify the input language.
- 
+
 A "language" field in JSON input can also be supported, and should take precedence over the header. The JSON "language" field may apply to individual parts of input, while the header provides a default language value for all of the input in the request.
 
 ## Dates
