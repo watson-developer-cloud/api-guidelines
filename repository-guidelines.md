@@ -1,4 +1,4 @@
-# Watson Developer Cloud GitHub Repository Guidelines
+# Repository Guidelines
 
 (These guidelines are for internal IBM teams looking to host projects on this GitHub page. We host the guidelines publicly here to give developers an idea of what to expect from our projects.)
 
