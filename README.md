@@ -202,7 +202,7 @@ When input or output JSON structures contain top level anonymous arrays, for exa
 
 ### Versioning
 
-Services should include a major version in the path (`/v1/`) and a minor version as a required query parameter that takes a date: `?version=2015-11-24` (inspired by the Foursquare model of date-versioning). This minor version can then be used to control the behavior of minor breaking changes, so that when an output field name, status code, or other change is made users are not affected until they update their version. (Changes to underlying models are not considered breaking and are not controlled by the version parameter.)
+Services should include a major version in the path (`/v1/`) and a minor version as a required query parameter that takes a date: `?version=2015-11-24` (inspired by the [Foursquare](https://developer.foursquare.com/overview/versioning) model of date-versioning). This minor version can then be used to control the behavior of minor breaking changes, so that when an output field name, status code, or other change is made users are not affected until they update their version. (Changes to underlying models are not considered breaking and are not controlled by the version parameter.)
 
 Developers should never pass the current date as a version, and should instead use the latest version available when writing code and periodically check for changes and update their code and version to take advantage of them.
 
