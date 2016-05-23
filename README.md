@@ -40,7 +40,7 @@ These API guidelines are used to guide design of the IBM's Watson Developer Clou
 
 The words used should match the users' terminology.
 
-All names specified in path and query parameters, resource names, and JSON input and output fields should use `snake_case` and should not use abbreviations or acronyms.
+All names specified in path and query parameters, resource names, and JSON input and output fields should use "snake_case" and should not use abbreviations or acronyms.
 
 Good:
 
