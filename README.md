@@ -40,7 +40,7 @@ These API guidelines are used to guide design of the IBM's Watson Developer Clou
 
 The words used should match the users' terminology.
 
-All names specified in path and query parameters, resource names, and JSON input and output fields should use snake_case and should not use abbreviations or acronyms.
+All names specified in path and query parameters, resource names, and JSON input and output fields should use `snake_case` and should not use abbreviations or acronyms.
 
 Good:
 
@@ -202,25 +202,25 @@ When input or output JSON structures contain top level anonymous arrays, for exa
 
 ### Versioning
 
-Services should include a major version in the path (`/v1/`) and a minor version as a required query parameter that takes a date: `?version=2015-11-24` (inspired by the Foursquare model of date-versioning). This minor version can then be used to control the behavior of minor breaking changes, so that when an output field name, status code, or other change is made users are not affected until they update their version. (Changes to underlying models are not considered breaking and are not controlled by the version parameter.)
+Services should include a major version in the path (`/v1/`) and a minor version as a required query parameter that takes a date: `?version=2015-11-24` (inspired by the [Foursquare](https://developer.foursquare.com/overview/versioning) model of date-versioning). This minor version can then be used to control the behavior of minor breaking changes, so that when an output field name, status code, or other change is made users are not affected until they update their version. (Changes to underlying models are not considered breaking and are not controlled by the version parameter.)
 
 Developers should never pass the current date as a version, and should instead use the latest version available when writing code and periodically check for changes and update their code and version to take advantage of them.
 
-Date versioning FAQ:
+#### Date versioning FAQ
 
-#### Why make the version date required? Wouldn't it be simpler to make it optional?
+##### Why make the version date required? Wouldn't it be simpler to make it optional?
 
 The main reason not to provide a default version is that the only stable behavior would have to be defaulting to the *oldest* version. We want developers to target the newest version at the date they write their code, but in a way that won't break their code when we make breaking changes. (FourSquare stopped accepting requests without version dates, likely for the same reasons.)
 
 The exception is that when adding version dates to an existing public API major version that did not previously have version dates, the introduction of the version parameter would have to be optional to avoid being a breaking change.
 
-#### My service would never use this, since it would be too expensive to maintain multiple versions.
+##### My service would never use this, since it would be too expensive to maintain multiple versions.
 
 One of the most common of these changes are design defects that slipped unnoticed into a public release, such as accidental quotation of numbers, unnecessary output fields, field names that don't follow the API's naming patterns, status codes that don't follow the REST conventions (especially in error scenarios), incorrect date formats, error response field names that match the rest of the API and platform, and default parameter values that cause usability or performance problems. (Each of these issues has occurred at least once in public Watson Developer Cloud APIs.) Stripe's [API changelog](https://stripe.com/docs/upgrades#api-changelog) has more examples of the types of API fixes and evolutions that are useful to be able to make.
 
 In the absence of version dates, these defects persist in the API until the next major version; with version dates, they can be addressed for new users without breaking early adopters' code. With version dating, a single major version of the service can conditionally follow the new API design. Even if a service doesn't intend to make breaking changes, historically the need for them has been common.
 
-#### Should a service reject calls where the version date matches the current date or a future date?
+##### Should a service reject calls where the version date matches the current date or a future date?
 
 The current answer to this is no, although the reasons for this are less strong than those around making version dates required, and are more implementation centric than API centric. One reason to not reject requests for future dates is to make it easier to test and deploy features that will be enabled in a future release; internal testing of a new change that will take effect at a future date is simpler when there isn't code (or production-conditioned code) that compares the version date to the current date.
 
