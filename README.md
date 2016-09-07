@@ -206,6 +206,23 @@ Services should include a major version in the path (`/v1/`) and a minor version
 
 Developers should never pass the current date as a version, and should instead use the latest version available when writing code and periodically check for changes and update their code and version to take advantage of them.
 
+#### What counts as "breaking"
+
+At a high level, a "breaking" change is a change that would cause "reasonable" code to stop working. What's "reasonable" is subjective, but examples of changes we consider non-breaking include:
+
+* Addition of output fields
+* Addition of (optional) input parameters
+* Changes to underlying models and algorithms that may result in different results and values
+* Changes to string values (in most cases; dates and other structured strings are exceptions to this)
+
+Changes we consider breaking include:
+
+* Removing output fields
+* Addition of a required input parameter
+* Changes to parameter default values
+* Change of field names
+* Change of status codes (ideally; historically we've made changes between 4xx and other 4xx, and 2xx and other 2xx, without considering them breaking)
+
 #### Date versioning FAQ
 
 ##### Why make the version date required? Wouldn't it be simpler to make it optional?
