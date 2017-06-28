@@ -49,3 +49,27 @@ pylint . --disable=F0401,E0611,E1124,E1004,C0111,I0011,I0012,W0704,W0142,W0212,W
 
 All non-trivial methods should have docstrings. Docstrings should follow guidelines here: [PEP257](http://www.python.org/dev/peps/pep-0257/). For more examples, see the [Google style guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html?showone=Comments#Comments) around docstrings.
 
+## Swift
+
+Based on [The Official raywenderlich.com Swift Style Guide ](https://github.com/raywenderlich/swift-style-guide)
+and [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/),
+with exceptions/additions as follows:
+* Use the following style for empty arrays/dictionaries (from [The Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html#//apple_ref/doc/uid/TP40014097-CH2-ID461l)):
+
+```swift
+let emptyArray = [String]()
+let emptyDictionary = [String: Float]()
+```
+
+* Use four spaces for indentation
+* Maximum 500 characters line width
+
+### Swiftlint
+
+[SwiftLint](https://github.com/realm/SwiftLint) is a tool to enforce Swift coding style and conventions.
+
+You can use SwiftLint with a special configuration file to enforce this coding style.
+
+You can find an example SwiftLint configuration file that essentially conforms to the above coding style conventions
+[here](https://github.com/IBM-Swift/Package-Builder/blob/master/.swiftlint.yml).
+
