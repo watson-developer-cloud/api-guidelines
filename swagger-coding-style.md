@@ -9,7 +9,7 @@
 
   You should regenerate the TOC after making changes to this file.
 
-      ./node_modules/.bin/markdown-toc -i Swagger-Coding-Style.md
+      ./node_modules/.bin/markdown-toc -i swagger-coding-style.md
   -->
 
 <!-- toc -->
@@ -29,14 +29,16 @@
   * [Order of operations](#order-of-operations)
   * [Summary and description](#summary-and-description)
   * [OperationId](#operationid)
-  * [Use refs for common parameters](#use-refs-for-common-parameters)
-  * [Specify common parameters for a path in the path definition](#specify-common-parameters-for-a-path-in-the-path-definition)
-  * [Parameter order](#parameter-order)
-  * [Models for optional body parameters](#models-for-optional-body-parameters)
   * [Explicitly specify consumes type(s)](#explicitly-specify-consumes-types)
   * [Do not explicitly define a `content-type` header parameter](#do-not-explicitly-define-a-content-type-header-parameter)
   * [Explicitly specify produces type(s)](#explicitly-specify-produces-types)
   * [Do not explicitly define a `accept-type` header parameter](#do-not-explicitly-define-a-accept-type-header-parameter)
+- [Parameters](#parameters)
+  * [Use well-defined parameter types](#use-well-defined-parameter-types)
+  * [Use refs for common parameters](#use-refs-for-common-parameters)
+  * [Specify common parameters for a path in the path definition](#specify-common-parameters-for-a-path-in-the-path-definition)
+  * [Parameter order](#parameter-order)
+  * [Models for optional body parameters](#models-for-optional-body-parameters)
 - [Conventions / Annotations for SDK generation](#-conventions--annotations-for-sdk-generation)
   * [Title and version](#title-and-version)
   * [Error response models](#error-response-models)
@@ -190,33 +192,6 @@ The `operationId` should be specific and descriptive. Here is the recommended co
     - PUT an update to a `Model`: `updateModel`
     - DELETE a `Model`: `deleteModel`
 
-### Use refs for common parameters
-
-For any parameters that appear on multiple operations,
-create a named parameter in the parameters section of the swagger doc and
-then use a `$ref` to reference the parameter definition from every operation
-that accepts this parameter.
-
-### Specify common parameters for a path in the path definition
-
-Any parameter that appears on all operations of a particular path should be specified
-in the parameter list for the path rather than in the parameter list for each of
-the operations.
-This makes the API description more concise and easy to understand.
-
-### Parameter order
-
-List parameters in the order they shall appear in the SDKs:
-
-- List all required parameters before any optional parameters.
-  - For services that take a version parameter, list it first since it is always required.
-- Add new optional parameters to the *end* of the parameter list.
-
-### Models for optional body parameters
-
-Don't specify required properties in the schema of an optional body parameter.
-This is ambiguous and can lead to incorrect implementation on the client or server.
-
 ### Explicitly specify consumes type(s)
 
 All POST and PUT operations should explicitly specify their `consumes` type(s).
@@ -250,6 +225,71 @@ The API explorer generates an entry field for accept-type based on produces, so 
 accept-type header parameter leads to redundant and confusing means to specify accept type in the
 API explorer.
 The Watson SDK generator ignores any explicitly coded `accept-type` header parameter.
+
+<!-- --------------------------------------------------------------- -->
+
+## Parameters
+
+### Use well-defined parameter types
+
+Parameters should have well-defined type and format information.
+Only use combinations of `type` and `format` defined in the
+[Swagger Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types)
+Parameter types are further constrained by their "in" property, as specified in
+[Swagger Specification, Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object).
+
+Parameters that may have multiple values (e.g. a comma-separated list of values) are best described as arrays of the base value type.
+The `collectionFormat` attribute is used to specify how the multiple values are represented, with the default being comma-separated values (CSV).
+
+Good:
+```
+{
+    "name": "return",
+    "in": "query",
+    "type": "array",
+    "items": {
+        "type": "string"
+    },
+    "description": "A comma separated list of the portion of the document hierarchy to return.",
+{
+```
+
+Bad:
+```
+{
+    "name": "return",
+    "in": "query",
+    "type": "string",
+    "description": "A comma separated list of the portion of the document hierarchy to return.",
+{
+```
+
+### Use refs for common parameters
+
+For any parameters that appear on multiple operations,
+create a named parameter in the parameters section of the swagger doc and
+then use a `$ref` to reference the parameter definition from every operation
+that accepts this parameter.
+
+### Specify common parameters for a path in the path definition
+
+Any parameter that appears on all operations of a particular path should be specified
+in the parameter list for the path rather than in the parameter list for each of
+the operations.
+This makes the API description more concise and easy to understand.
+
+### Parameter order
+
+List parameters in the order they shall appear in the SDKs:
+
+- List all required parameters before any optional parameters.
+  - For services that take a version parameter, list it first since it is always required.
+- Add new optional parameters to the *end* of the parameter list.
+
+### Models for optional body parameters
+
+Don't specify required properties in the schema of an optional body parameter.
+This is ambiguous and can lead to incorrect implementation on the client or server.
 
 <!-- --------------------------------------------------------------- -->
 
