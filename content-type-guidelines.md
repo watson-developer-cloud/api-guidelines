@@ -18,7 +18,7 @@ Services should follow the most helpful of these approaches that works for their
 
 **Don't require a content-type (or require a non-generic content-type)**
 
-When making a curl request like “curl https://host.com -d file=@./file”, the default may not have a content-type other than the generic “application/octet-stream”; however if we still have enough to process the request we should
+When making a curl request like “curl https://host.com -d file=@./file”, the default may not have a content-type other than the generic “application/octet-stream”; however if we still have enough to process the request we should.
 
 
 **Don't require filenames when not needed**
