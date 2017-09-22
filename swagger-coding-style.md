@@ -25,6 +25,7 @@
   * [Order of properties](#order-of-properties)
   * [Order of properties in body parameter models](#order-of-properties-in-body-parameter-models)
   * [Sibling elements for refs](#sibling-elements-for-refs)
+  * [Use of discriminator field](#use-of-discriminator-field)
 - [Operations](#operations)
   * [Order of operations](#order-of-operations)
   * [Summary and description](#summary-and-description)
@@ -162,6 +163,58 @@ Models that represent body parameters may be absorbed into the parameter list fo
 Be aware that the JSON Schema specification (an underlying element of the swagger/OpenAPI spec) does not allow "sibling" elements to a $ref.
 (See this [swagger editor github issue](https://github.com/swagger-api/swagger-editor/issues/1184))..
 This means that a property defined with a $ref cannot be given an alternate description (or any other attribute).
+
+### Use of discriminator field
+
+The `discriminator` field of a model can be used to create a polymorphic relationship between models. The `discriminator` should be specified on the superclass, although the value doesn't actually affect the relationship. The subclasses should use the `allOf` property to reference the superclass and define any additional properties. 
+
+Example:
+
+```
+    "Pet": {
+        "type": "object",
+        "discriminator": "pet_type",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "age": {
+                "type": "integer",
+                "format": "int32"
+            }
+        }
+    },
+    "Dog": {
+        "allOf": [
+            {
+                "$ref": "Pet"
+            },
+            {
+                "properties": {
+                    "breed": {
+                        "type": "string"
+                    }
+                }
+            }
+        ]
+    },
+    "Hamster": {
+        "allOf": [
+            {
+                "$ref": "Pet"
+            },
+            {
+                "properties": {
+                    "fur_color": {
+                        "type": "string"
+                    }
+                }
+            }
+        ]
+    }
+```
+
+Using `discriminator` allows for the `Pet` class to show up as a `parent` property for both `Dog` and `Hamster` in the SDK generator. Similarly, `allOf` will ensure that the resulting `Dog` and `Hamster` objects contain the properties derived from `Pet`.
 
 <!-- --------------------------------------------------------------- -->
 
