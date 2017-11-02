@@ -48,6 +48,10 @@
   * [Excluding operations from the SDKs](#excluding-operations-from-the-sdks)
   * [Array item names](#array-item-names)
   * [Java builders](#java-builders)
+  * [File content types](#file-content-types)
+  * [Filenames](#filenames)
+  * [VCAP_SERVICES](#vcap_services)
+  * [Version dates](#version-dates)
 
 <!-- tocstop -->
 
@@ -358,6 +362,30 @@ and the `version` truncated at the "." is the "V" version of the service.
 The SDK generator assumes that Error responses are defined by a model whose name starts with "Error".
 The SDK generator does not generate models for Error responses -- they are handled inline.
 
+The following is an example of a well-designed error response model:
+```
+    "ErrorModel": {
+      "required": [
+        "code",
+        "error"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "The HTTP status code."
+        },
+        "error": {
+          "type": "string",
+          "description": "A message intended for users that describes the error that occurred."
+        },
+        "help": {
+          "type": "string",
+          "description": "A URL to documentation explaining the cause and possibly solutions for this error."
+        }
+      }
+    }
+```
+
 ### Dynamic properties in models
 
 Some models may allow _dynamic properties_ -- properties that are not explicitly named in the schema
@@ -388,8 +416,43 @@ Operations that should not have methods generated in the SDKs should be annotate
 
 Swagger (v2.0) has no provision for giving a name to the elements of an array property.
 This is a problem for the SDK generator if it wants to create a method to add or access a single element of the array.
+
 Specify the `"x-item-name"` annotation on the array property with the desired item name.
 
 ### Java builders
 
 Models that should have an associated builder object in Java should be annotated with `"x-java-builder": true`.
+
+### File content types
+
+Swagger (v2.0) has no provision for specifying the allowable content-types for files passed in multi-part form bodies.
+This information is needed by the generator to determine whether the SDK should support a fixed or user-supplied
+content_type for the file.
+
+Use the `"x-file-content-types"` annotation on a file parameter to specify an array of allowable content-types for the
+file.  The first value in this array will be used as the default content-type.
+
+### Filenames
+
+Some operations that accept a file parameter require a filename to be supplied along with the file contents.
+Typically this is because the service wants to store the filename as metadata associated with the file contents.
+
+To specify that the service requires a filename to be provided along with the file contents, add the `x-include-filename`
+annotation to the file parameter with the value `true`.
+
+### VCAP_SERVICES
+
+Applications that run in Bluemix can obtain credentials for thier associated services from the `VCAP_SERVICES` environment
+variable.
+
+Specify the `x-vcap-services-name` annotation in the info section of the swagger file with the name of the service
+as it appears in the `VCAP_SERVICES` environment variable to enable the SDK to obtain these credentials.
+
+### Version dates
+
+Services that accept version-date parameters may want to define constants in the SDK that developers can use to request
+a particular service version.
+
+Specify the `x-version-dates` annotation in the info section of the swagger file with an array of version date values
+that should be included as constants in the generated SDK.
+
