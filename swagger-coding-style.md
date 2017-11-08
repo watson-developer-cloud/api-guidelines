@@ -404,6 +404,12 @@ alternate name for that property or parameter in the SDKs.
 The primary use for this annotation is to rename properties/parameters whose original name is
 a reserved word in one of the SDK languages.
 
+In certain cases, a property or parameter may need to be renamed only for one particular language.
+To handle this situation, the generator also recognizes language-specific alternate name annotations
+with the format `x-<lang>-alternate-name`.
+E.g. use the annotation `"x-java-alternate-name", "awesome_name"` to rename a property or parameter to
+`awesome_name` only in the Java SDK.
+
 ### Excluding operations from the SDKs
 
 It may be desirable to exclude some operations from the generated SDKs.
