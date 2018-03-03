@@ -410,6 +410,9 @@ with the format `x-<lang>-alternate-name`.
 E.g. use the annotation `"x-java-alternate-name", "awesome_name"` to rename a property or parameter to
 `awesome_name` only in the Java SDK.
 
+Be careful to avoid assigning an alternate name that is identical to the name or alternate name of
+another property of the model or parameter of the operation.
+
 ### Excluding operations from the SDKs
 
 It may be desirable to exclude some operations from the generated SDKs.
