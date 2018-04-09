@@ -42,6 +42,7 @@
   * [Models for optional body parameters](#models-for-optional-body-parameters)
 - [Conventions / Annotations for SDK generation](#-conventions--annotations-for-sdk-generation)
   * [Title and version](#title-and-version)
+  * [Host name for default service URL](#host-name-for-default-service-url)
   * [Error response models](#error-response-models)
   * [Dynamic properties in models](#dynamic-properties-in-models)
   * [Alternate names for properties or parameters](#alternate-names-for-properties-or-parameters)
@@ -356,6 +357,17 @@ This is ambiguous and can lead to incorrect implementation on the client or serv
 
 The SDK generator assumes that the `title` in the info section is the service name (e.g. "Conversation", and not "Conversation APIs" or some such)
 and the `version` truncated at the "." is the "V" version of the service.
+
+
+### Host name for default service URL
+
+In OpenAPI v2, the base URL for the service is specified in the combination of the `host` and `basePath` properties of the
+API document.  But Watson avoids using the `host` properties because it interferes with the proxy server setup they have
+created for the API explorer.
+
+The `x-watson-host` annotation can be added to the `info` section of the API Doc to specify the
+host value for the service in the even that this is not provided in the `host` property.
+
 
 ### Error response models
 
