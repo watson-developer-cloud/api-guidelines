@@ -47,6 +47,8 @@
   * [Dynamic properties in models](#dynamic-properties-in-models)
   * [Alternate names for properties or parameters](#alternate-names-for-properties-or-parameters)
   * [Excluding operations from the SDKs](#excluding-operations-from-the-sdks)
+  * [Excluding a parameter from the SDKs](#excluding-a-parameter-from-the-sdks)
+  * [Excluding SDK support for some response types](#excluding-sdk-support-for-some-response-types)
   * [Array item names](#array-item-names)
   * [Java builders](#java-builders)
   * [File content types](#file-content-types)
@@ -171,7 +173,7 @@ This means that a property defined with a $ref cannot be given an alternate desc
 
 ### Use of discriminator field
 
-The `discriminator` field of a model can be used to create a polymorphic relationship between models. The `discriminator` should be specified on the superclass, although the value doesn't actually affect the relationship. The subclasses should use the `allOf` property to reference the superclass and define any additional properties. 
+The `discriminator` field of a model can be used to create a polymorphic relationship between models. The `discriminator` should be specified on the superclass, although the value doesn't actually affect the relationship. The subclasses should use the `allOf` property to reference the superclass and define any additional properties.
 
 Example:
 
@@ -432,6 +434,23 @@ For example, Watson Tone Analyzer has GET and POST operations that perform essen
 SDKs generally only implement the POST operation since it is more flexible and the complexities of coding the POST are hidden by the SDK.
 
 Operations that should not have methods generated in the SDKs should be annotated with `"x-sdk-exclude": true`
+
+### Excluding a parameter from the SDKs
+
+In certain cases it is useful to exclude support for a particular parameter of an operation from the generated SDKs.
+A specific example is the `Transfer-Encoding` parameter of the Speech to Text service, where supporting
+this parameter would require new streaming support not yet implemented in the SDKs.
+
+Parameters that should not be supported in the SDKs should be annotated with `"x-sdk-exclude": true`
+
+### Excluding SDK support for some response types
+
+It may be appropriate to exclude support for some response types from the SDKs.
+In the "strongly-typed" languages, separate methods are generated for each major response type.
+This adds clutter and overhead to the SDKs in terms of test effort, etc.
+When the marginal value of a particular response type is low, it can be excluded from the SDKs.
+
+Use the `x-sdk-produces` annotation to specify a subset of the `produces` values to be supported by the SDKs.
 
 ### Array item names
 
