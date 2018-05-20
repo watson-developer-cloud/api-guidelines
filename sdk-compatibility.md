@@ -29,6 +29,7 @@
 - [Incompatible changes](#incompatible-changes)
   * [Removal of a operation](#removal-of-a-operation)
   * [Removal of a parameter from an operation](#removal-of-a-parameter-from-an-operation)
+  * [Changing the operationId of an operation](#changing-the-operationid-of-an-operation)
   * [Reordering of the parameters of an operation](#reordering-of-the-parameters-of-an-operation)
   * [Adding a required parameter to an operation](#adding-a-required-parameter-to-an-operation)
   * [Adding a parameter to an operation anywhere except after the last existing parameter](#adding-a-parameter-to-an-operation-anywhere-except-after-the-last-existing-parameter)
@@ -158,6 +159,13 @@ OpenAPI v2 allows an operation to be flagged as deprecated with the boolean `dep
 To maintain compatibility, the parameter should be retained but marked as deprecated.
 The description should be updated to document that its value is ignored.
 Within this deprecation period, new major versions of the SDK can eliminate the parameter.
+
+### Changing the operationId of an operation
+
+The `operationId` is used as the name of the SDK method (adapted to the language naming conventions)
+for the operation.
+Changing the `operationId` for an operation will likely change the method name in the SDK,
+which will break any applications that use the previous method name.
 
 ### Reordering of the parameters of an operation
 
