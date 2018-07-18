@@ -17,7 +17,7 @@ Relevant projects should follow the established conventions for naming of projec
 
 In additional to naming guidelines, we also have overall [code quality guidelines](code-style.md): Projects hosted in the Watson Developer Cloud GitHub should follow best practices in terms of language conventions, packaging, licensing, code style and readability.
 
-To maintain this quality, review each project before adding it — you can send a link to an internally hosted project to [germanatt@us.ibm.com](mailto:germanatt@us.ibm.com) and [jsstylos@us.ibm.com] (mailto:jsstylos@us.ibm.com) and can expect a list of suggestions, especially related to naming.
+To maintain this quality, review each project before adding it — you can send a link to an internally hosted project to [germanatt@us.ibm.com](mailto:germanatt@us.ibm.com) and [jsstylos@us.ibm.com](mailto:jsstylos@us.ibm.com) and can expect a list of suggestions, especially related to naming.
 
 ## 3) Maintenance and deprecation plan
 
