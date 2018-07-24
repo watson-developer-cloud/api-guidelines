@@ -2,7 +2,7 @@
 
 ## Background
 
-APIs that accept file parameters generally must use the `multipart/form-data` content type.
+APIs that accept file parameters commonly use the `multipart/form-data` content type.
 
 Files sent in `multipart/form-data` may have an associated filename and also an associated media-type.
 
@@ -17,7 +17,7 @@ The service may require that a filename be supplied along with the file contents
 
 The service may require that a media type be supplied along with the file contents.  This typically needed if the file contents may be one of several different media types, and the service uses the supplied media type value to determine how to process the file contents.
 
-When a file parameter may be one of several different media types, there are several mechanisms the service may use to determine the associated media type.  As mentioned above, the service could require the media type to supplied in the request, or could infer the media type from the filename associated with the request.  In addition, it is often possible to determine the media type by inspecting the first few bytes of the file content for a known [file-signature][file-signatures].
+When a file parameter may be one of several different media types, there are several mechanisms the service may use to determine the associated media type.  As mentioned above, the service could require the media type to be supplied in the request, or could infer the media type from the filename associated with the request.  In addition, it is often possible to determine the media type by inspecting the first few bytes of the file content for a known [file-signature][file-signatures].
 
 [file-signatures]: https://en.wikipedia.org/wiki/List_of_file_signatures 
 
