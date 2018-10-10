@@ -58,6 +58,7 @@ Bad:
 Exceptions (cases when we use abbreviations or acronyms):
 
 * `en`, `en-us`. (Since there's an established convention for language codes, we use these.)
+* `ibm`, `http`, etc. (When an accronym or abbreviation is more common than the full name, we use the shorter name instead.)
 
 ## JSON vs CSV vs XML
 
