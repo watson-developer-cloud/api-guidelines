@@ -31,14 +31,14 @@
   * [Summary and description](#summary-and-description)
   * [OperationId](#operationid)
   * [Explicitly specify consumes type(s)](#explicitly-specify-consumes-types)
-  * [Do not explicitly define a `content-type` header parameter](#do-not-explicitly-define-a-content-type-header-parameter)
   * [Explicitly specify produces type(s)](#explicitly-specify-produces-types)
-  * [Do not explicitly define a `accept-type` header parameter](#do-not-explicitly-define-a-accept-type-header-parameter)
 - [Parameters](#parameters)
   * [Use well-defined parameter types](#use-well-defined-parameter-types)
   * [Use refs for common parameters](#use-refs-for-common-parameters)
   * [Specify common parameters for a path in the path definition](#specify-common-parameters-for-a-path-in-the-path-definition)
   * [Parameter order](#parameter-order)
+  * [Do not explicitly define a `content-type` header parameter](#do-not-explicitly-define-a-content-type-header-parameter)
+  * [Do not explicitly define a `accept-type` header parameter](#do-not-explicitly-define-a-accept-type-header-parameter)
   * [Models for optional body parameters](#models-for-optional-body-parameters)
 - [Conventions / Annotations for SDK generation](#-conventions--annotations-for-sdk-generation)
   * [Title and version](#title-and-version)
@@ -51,6 +51,8 @@
   * [Excluding SDK support for some response types](#excluding-sdk-support-for-some-response-types)
   * [Array item names](#array-item-names)
   * [Java builders](#java-builders)
+  * [Content-type description and required](#content-type-description-and-required)
+  * [Accept description and required](#accept-description-and-required)
   * [File content types](#file-content-types)
   * [Filenames](#filenames)
   * [VCAP_SERVICES](#vcap_services)
@@ -258,33 +260,11 @@ All POST and PUT operations should explicitly specify their `consumes` type(s).
 Note that Swagger (v2) supports a global `consumes` setting to specify the content type(s) consumed
 by any API that does not explicitly override this value.
 
-### Do not explicitly define a `content-type` header parameter
-
-Operations that consume multiple content types often use a "content-type" header parameter to specify
-the content type of data provided.
-However, this header parameter should not be coded explicitly in the swagger, since it is implicitly
-specified by a `consumes` setting with more than one value.
-The API explorer generates an entry field for content-type based on consumes, so having an explicit
-content-type header parameter leads to redundant and confusing means to specify content type in the
-API explorer.
-The Watson SDK generator ignores any explicitly coded `content-type` header parameter.
-
 ### Explicitly specify produces type(s)
 
 All operations should explicitly specify their `produces` type(s).
 Note that Swagger (v2) supports a global `produces` setting to specify the content type(s) produced
 by any API that does not explicitly override this value.
-
-### Do not explicitly define a `accept-type` header parameter
-
-Operations that produce multiple content types often use an "accept-type" header parameter to specify
-the content type of data to be returned.
-However, this header parameter should not be coded explicitly in the swagger, since it is implicitly
-specified by a `produces` setting with more than one value.
-The API explorer generates an entry field for accept-type based on produces, so having an explicit
-accept-type header parameter leads to redundant and confusing means to specify accept type in the
-API explorer.
-The Watson SDK generator ignores any explicitly coded `accept-type` header parameter.
 
 <!-- --------------------------------------------------------------- -->
 
@@ -345,6 +325,27 @@ List parameters in the order they shall appear in the SDKs:
 - List all required parameters before any optional parameters.
   - For services that take a version parameter, list it first since it is always required.
 - Add new optional parameters to the *end* of the parameter list.
+
+
+### Do not explicitly define a `content-type` header parameter
+
+Operations that consume multiple content types often use a "content-type" header parameter to specify
+the content type of data provided.
+However, this header parameter should not be coded explicitly in the swagger, since it is implicitly
+specified by a `consumes` setting with more than one value.
+OpenAPI 3.0 requires that a "content-type" header parameter, if specified, must be ignored.
+The Watson SDK generator ignores any explicitly coded `content-type` header parameter.
+
+
+### Do not explicitly define a `accept-type` header parameter
+
+Operations that produce multiple content types often use an "accept-type" header parameter to specify
+the content type of data to be returned.
+However, this header parameter should not be coded explicitly in the swagger, since it is implicitly
+specified by a `produces` setting with more than one value.
+OpenAPI 3.0 requires that an "accept" header parameter, if specified, must be ignored.
+The Watson SDK generator ignores any explicitly coded `accept-type` header parameter.
+
 
 ### Models for optional body parameters
 
@@ -462,6 +463,44 @@ Specify the `"x-item-name"` annotation on the array property with the desired it
 ### Java builders
 
 Models that should have an associated builder object in Java should be annotated with `"x-java-builder": true`.
+
+
+### Content-type description and required
+
+For operations that accept multiple content-types, users may need to specify the content type of a request body
+explicitly using the "content-type" header parameter.  However, "content-type" should not be explicitly defined
+as a parameter to the operation ([see above](#do-not-explicitly-define-a-content-type-header-parameter)), so
+there is no official mechanism to specify a custom description for the "content-type" header parameter when it
+may be needed.
+
+Use the `"x-content-type-description"` annotation on an operation to specify a custom description for
+the "content-type" header parameter.
+
+It is best practice to support requests without a "content-type" header by assuming a default content type,
+or by introspection of the content to determine its type.  However, some operations may require the user to explicitly
+pass a "content-type" header.
+
+Use the `"x-content-type-required"` annotation on an operation to specify that an operation requires the request
+to contain a "content-type" header parameter.
+
+
+### Accept description and required
+
+For operations that may return multiple content-types, users may need to specify the content type of the response
+explicitly using the "accept" header parameter.  However, "accept" should not be explicitly defined
+as a parameter to the operation ([see above](#do-not-explicitly-define-an-accept-header-parameter)), so
+there is no official mechanism to specify a custom description for the "accept" header parameter when it
+may be needed.
+
+Use the `"x-accept-description"` annotation on an operation to specify a custom description for
+the "accept" header parameter.
+
+It is best practice to support requests without an "accept" header by assuming a default content type for the response.
+However, some operations may require the user to explicitly pass an "accept" header.
+
+Use the `"x-accept-required"` annotation on an operation to specify that an operation requires the request
+to contain an "accept" header parameter.
+
 
 ### File content types
 
