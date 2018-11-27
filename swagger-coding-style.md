@@ -482,6 +482,7 @@ pass a "content-type" header.
 
 Use the `"x-content-type-required"` annotation on an operation to specify that an operation requires the request
 to contain a "content-type" header parameter.
+When this annotation is not present, the content-type parameter is defined as optional.
 
 
 ### Accept description and required
@@ -500,6 +501,7 @@ However, some operations may require the user to explicitly pass an "accept" hea
 
 Use the `"x-accept-required"` annotation on an operation to specify that an operation requires the request
 to contain an "accept" header parameter.
+When this annotation is not present, the accept parameter is defined as optional.
 
 
 ### File content types
