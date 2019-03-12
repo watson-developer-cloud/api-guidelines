@@ -526,7 +526,7 @@ annotation to the file parameter with the value `true`.
 Applications that run in Bluemix can obtain credentials for thier associated services from the `VCAP_SERVICES` environment
 variable.
 
-Specify the `x-vcap-services-name` annotation in the info section of the swagger file with the name of the service
+Specify the `x-vcap-service-name` annotation in the info section of the swagger file with the name of the service
 as it appears in the `VCAP_SERVICES` environment variable to enable the SDK to obtain these credentials.
 
 ### Version dates
