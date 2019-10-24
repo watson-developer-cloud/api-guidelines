@@ -62,7 +62,7 @@ Exceptions (cases when we use abbreviations or acronyms):
 
 ## JSON vs CSV vs XML
 
-APIs should support JSON for non-binary data input and output, and may also support CSV or XML when desired, using the `Content-Type` (for input) and `Accept` (for output) headers to specify formats. Formats should default to JSON when not specified.
+APIs should support JSON for non-binary data input and output, and may also support CSV or XML when desired (although it's not usually recommended), using the `Content-Type` (for input) and `Accept` (for output) headers to specify formats. Formats should default to JSON when not specified.
 
 ## JSON Structure
 
