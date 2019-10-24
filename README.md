@@ -138,6 +138,10 @@ If the asychronous operation results are meant to be ephemeral, instead of a per
 
 `DELETE` `https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/47C164-nlc-243`
 
+### External input and output
+
+For very large inputs or outputs, a service may also accept Object Storage pointers and credentials to asynchronously read in very large input and write out very large output.
+
 ## Multi-lingual Support
 
 Language codes should be specified in input and output as "en", "en-US". Left unspecified the language should default to "en".
