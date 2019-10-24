@@ -183,6 +183,8 @@ Examples:
 
 `PUT` methods should be idempotent (calling the `PUT` method multiple times with the same parameters should be indistinguishable from calling it once) and should fully replace the resource and all sub-resources. `PUT` should also avoid query parameters.
 
+Note: We've avoided `PATCH` so far because of the two competing `PATCH` formats, JSON Patch violates multiple of our other API guidelines (top-level arrays, abbreviations), while JSON Merge lacks the expressiveness to remove fields.
+
 ## Common API Problems
 
 ### `GET` vs `POST` vs `PUT`
