@@ -280,3 +280,5 @@ https://gateway.watsonplatform.net/language-translation/api/
 [18F API Standards](https://github.com/18f/api-standards) - REST API guidelines from Whitehouse technology team
 
 [Move Fast, Don't Break Your API](http://www.heavybit.com/library/video/2014-09-30-amber-feng) - Talk about Stripe's use of version dates
+
+[Microsoft API Guidelines](https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md) - Microsoft's detailed API guidelines
