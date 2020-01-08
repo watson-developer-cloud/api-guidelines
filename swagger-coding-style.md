@@ -68,7 +68,7 @@ The following are guidelines for writing API descriptions using Swagger.
 Of course, all Swagger API documents should conform to the Swagger/OpenAPI specification:
 
 - [Swagger specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)
-- [OpenAPI specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md)
+- [OpenAPI specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
 
 In addition, Watson APIs should adhere to the Watson Developer Cloud REST API guidelines:
 
@@ -121,7 +121,7 @@ Bad:
 
 Model properties and parameters should have well-defined type and format information.
 Only use combinations of `type` and `format` defined in the
-[Swagger Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types)
+[OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypes)
 
 Good:
 ```
@@ -251,7 +251,8 @@ The `operationId` should be specific and descriptive. Here is the recommended co
 - GET a single `Model`: `getModel`
 - GET a list of `Model`: `listModels`
 - POST a new `Model`: `createModel` or `addModel`
-- PUT an update to a `Model`: `updateModel`
+- POST a partial update to a `Model`: `updateModel`
+- PUT a complete replacement to a `Model`: `replaceModel`
 - DELETE a `Model`: `deleteModel`
 
 ### Explicitly specify consumes type(s)
@@ -272,7 +273,7 @@ by any API that does not explicitly override this value.
 
 ### Use well-defined parameter types
 
-Parameters should have well-defined type and format information. Only use combinations of `type` and `format` defined in the [Swagger Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types) Parameter types are further constrained by their "in" property, as specified in [Swagger Specification, Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object).
+Parameters should have well-defined type and format information. Only use combinations of `type` and `format` defined in the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypes) Parameter types are further constrained by their "in" property, as specified in [OpenAPI Specification, Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject).
 
 Parameters that may have multiple values (for example, a comma-separated list of values) are best described as arrays of the base value type.
 
