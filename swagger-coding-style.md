@@ -68,7 +68,7 @@ The following are guidelines for writing API descriptions using Swagger.
 Of course, all Swagger API documents should conform to the Swagger/OpenAPI specification:
 
 - [Swagger specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)
-- [OpenAPI specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md)
+- [OpenAPI specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
 
 In addition, Watson APIs should adhere to the Watson Developer Cloud REST API guidelines:
 
@@ -121,7 +121,7 @@ Bad:
 
 Model properties and parameters should have well-defined type and format information.
 Only use combinations of `type` and `format` defined in the
-[Swagger Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types)
+[OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypes)
 
 Good:
 ```
@@ -145,7 +145,7 @@ The standard tools do not warn about this because the swagger spec does not rest
 
 ### Avoid reserved words
 
-Avoid using reserved words for model/property names (e.g. `error`, `return`, `type`, `input`).
+Avoid using reserved words for model/property names (for example, `error`, `return`, `type`, `input`).
 See [Alternate names for properties or parameters](#alternate-names-for-properties-or-parameters) below
 for a way to deal with existing properties whose names are reserved words.
 
@@ -244,15 +244,16 @@ about the operation behavior -- it should not simply restate the summary.
 
 Every operation should have a unique `operationId`.
 In the Swagger specification, `operationId`s are optional, but if specified, must be unique.
-For SDK generation, `operationId`s are used as the name of the method corresponding to the operation, so it is important to include these in the swagger.
+For SDK generation, `operationId`s are used as the name of the method corresponding to the operation, so it is important to include these in the OpenAPI definition file.
 
 The `operationId` should be specific and descriptive. Here is the recommended convention:
 
-    - GET a single `Model`: `getModel`
-    - GET a list of `Model`: `listModels`
-    - POST a new `Model`: `createModel` or `addModel`
-    - PUT an update to a `Model`: `updateModel`
-    - DELETE a `Model`: `deleteModel`
+- GET a single `Model`: `getModel`
+- GET a list of `Model`: `listModels`
+- POST a new `Model`: `createModel` or `addModel`
+- POST a partial update to a `Model`: `updateModel`
+- PUT a complete replacement to a `Model`: `replaceModel`
+- DELETE a `Model`: `deleteModel`
 
 ### Explicitly specify consumes type(s)
 
@@ -272,14 +273,12 @@ by any API that does not explicitly override this value.
 
 ### Use well-defined parameter types
 
-Parameters should have well-defined type and format information.
-Only use combinations of `type` and `format` defined in the
-[Swagger Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types)
-Parameter types are further constrained by their "in" property, as specified in
-[Swagger Specification, Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object).
+Parameters should have well-defined type and format information. Only use combinations of `type` and `format` defined in the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#dataTypes) Parameter types are further constrained by their "in" property, as specified in [OpenAPI Specification, Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject).
 
-Parameters that may have multiple values (e.g. a comma-separated list of values) are best described as arrays of the base value type.
-The `collectionFormat` attribute is used to specify how the multiple values are represented, with the default being comma-separated values (CSV).
+Parameters that may have multiple values (for example, a comma-separated list of values) are best described as arrays of the base value type.
+
+- In Swagger 2, the `collectionFormat` attribute specifies how the multiple values are represented. The default is comma-separated values (CSV).
+- In OpenAPI 3, the `style` attribute specifies serialization. For path parameters, the default is `"style": "simple", which indicates an array with CSV.
 
 Good:
 ```
@@ -290,7 +289,7 @@ Good:
     "items": {
         "type": "string"
     },
-    "description": "A comma separated list of the portion of the document hierarchy to return.",
+    "description": "A comma-separated list of the portion of the document hierarchy to return.",
 {
 ```
 
@@ -300,7 +299,7 @@ Bad:
     "name": "return",
     "in": "query",
     "type": "string",
-    "description": "A comma separated list of the portion of the document hierarchy to return.",
+    "description": "A comma-separated list of the portion of the document hierarchy to return.",
 {
 ```
 
@@ -358,7 +357,7 @@ This is ambiguous and can lead to incorrect implementation on the client or serv
 
 ### Title and version
 
-The SDK generator assumes that the `title` in the info section is the service name (e.g. "Conversation", and not "Conversation APIs" or some such)
+The SDK generator assumes that the `title` in the info section is the service name (for example, "Conversation", and not "Conversation APIs" or some such)
 and the `version` truncated at the "." is the "V" version of the service.
 
 
@@ -404,7 +403,7 @@ The following is an example of a well-designed error response model:
 ### Dynamic properties in models
 
 Some models may allow _dynamic properties_ -- properties that are not explicitly named in the schema
-(e.g. input, output, and context in Conversation).
+(for example, input, output, and context in Conversation).
 This should be explicitly specified with `additionalProperties` in the model definition.
 
 Note that `additionalProperties` is treated differently by the swagger tools from its meaning in JSON schema.
@@ -422,8 +421,8 @@ a reserved word in one of the SDK languages.
 In certain cases, a property or parameter may need to be renamed only for one particular language.
 To handle this situation, the generator also recognizes language-specific alternate name annotations
 with the format `x-<lang>-alternate-name`.
-E.g. use the annotation `"x-java-alternate-name", "awesome_name"` to rename a property or parameter to
-`awesome_name` only in the Java SDK.
+For example, use the annotation `"x-java-alternate-name", "awesome_name"` to rename a property or parameter
+to `awesome_name` only in the Java SDK.
 
 Be careful to avoid assigning an alternate name that is identical to the name or alternate name of
 another property of the model or parameter of the operation.
@@ -468,7 +467,7 @@ Models that should have an associated builder object in Java should be annotated
 ### Content-type description and required
 
 For operations that accept multiple content-types, users may need to specify the content type of a request body
-explicitly using the "content-type" header parameter.  However, "content-type" should not be explicitly defined
+explicitly using the "content-type" header parameter. However, "content-type" should not be explicitly defined
 as a parameter to the operation ([see above](#do-not-explicitly-define-a-content-type-header-parameter)), so
 there is no official mechanism to specify a custom description for the "content-type" header parameter when it
 may be needed.
@@ -477,7 +476,7 @@ Use the `"x-content-type-description"` annotation on an operation to specify a c
 the "content-type" header parameter.
 
 It is best practice to support requests without a "content-type" header by assuming a default content type,
-or by introspection of the content to determine its type.  However, some operations may require the user to explicitly
+or by introspection of the content to determine its type. However, some operations may require the user to explicitly
 pass a "content-type" header.
 
 Use the `"x-content-type-required"` annotation on an operation to specify that an operation requires the request
@@ -488,7 +487,7 @@ When this annotation is not present, the content-type parameter is defined as op
 ### Accept description and required
 
 For operations that may return multiple content-types, users may need to specify the content type of the response
-explicitly using the "accept" header parameter.  However, "accept" should not be explicitly defined
+explicitly using the "accept" header parameter. However, "accept" should not be explicitly defined
 as a parameter to the operation ([see above](#do-not-explicitly-define-an-accept-header-parameter)), so
 there is no official mechanism to specify a custom description for the "accept" header parameter when it
 may be needed.
@@ -511,7 +510,7 @@ This information is needed by the generator to determine whether the SDK should 
 content_type for the file.
 
 Use the `"x-file-content-types"` annotation on a file parameter to specify an array of allowable content-types for the
-file.  The first value in this array will be used as the default content-type.
+file. The first value in this array will be used as the default content-type.
 
 ### Filenames
 
@@ -526,14 +525,9 @@ annotation to the file parameter with the value `true`.
 Applications that run in Bluemix can obtain credentials for thier associated services from the `VCAP_SERVICES` environment
 variable.
 
-Specify the `x-vcap-service-name` annotation in the info section of the swagger file with the name of the service
+Specify the `x-vcap-service-name` annotation in the info section of the OpenAPI definition file with the name of the service
 as it appears in the `VCAP_SERVICES` environment variable to enable the SDK to obtain these credentials.
 
 ### Version dates
 
-Services that accept version-date parameters may want to define constants in the SDK that developers can use to request
-a particular service version.
-
-Specify the `x-version-dates` annotation in the info section of the swagger file with an array of version date values
-that should be included as constants in the generated SDK.
-
+Some services accept version date parameters. The `x-version-date` annotation in the info section of the OpenAPI definition file accepts a string with the most current version date.
