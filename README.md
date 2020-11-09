@@ -116,7 +116,7 @@ For operations that take more than ~15 seconds, users should initial an operatio
 
 For example:
 
-`POST` `https://gateway.watsonplatform.net/natural-language-classifier/classifiers` responds with:
+`POST` `https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers` responds with:
 
 ```
 {
@@ -124,7 +124,7 @@ For example:
   "name": "weather",
   "language": "en",
   "created": "2015-08-24T18:42:25.324Z",
-  "url": "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/47C164-nlc-243",
+  "url": "https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers/47C164-nlc-243",
   "status": "Training",
   "status_description": "The classifier instance is in its training phase, not yet ready to accept classify requests"
 }
@@ -132,11 +132,11 @@ For example:
 
 To retrieve the status of the operation, or the results (when the operation completes), the same url should be used, for example:
 
-`GET` `https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/47C164-nlc-243`
+`GET` `https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers/47C164-nlc-243`
 
 If the asychronous operation results are meant to be ephemeral, instead of a persistent resource, then users should delete the resource after retrieval:
 
-`DELETE` `https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/47C164-nlc-243`
+`DELETE` `https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers/47C164-nlc-243`
 
 ### External input and output
 
@@ -262,16 +262,23 @@ To allow developers to keep track of metadata associated with their REST calls (
 
 Services should follow the pattern:
 
-https://gateway.watsonplatform.net/*full-service-name-release*/api/v1
+`<tool>.<type>.<region>.<service-name>.<env-id>.watson.cloud.ibm.com`
+	
+Where `<tool>` is `voice`, `api`, or blank for tooling.
 
-Where *-release* is *-experimental*, *-beta*. (For GA releases this is omitted.)
+Where `<type>` is `private`, `direct`, `dedicated`, or blank for public.
+
+Where `<region>` is `us-south`, `us-east`, `eu-gb`, `eu-de`, `au-syd`, `jp-tok`, `kr-seo`.
+
+Where `<service-name>` is the full service name.
+
+Where `<env-id>` is `dev`, `test`, `preprod` or blank for production.
 
 For example:
 
-https://gateway.watsonplatform.net/tone-analyzer-experimental/api/  
-https://gateway.watsonplatform.net/personality-insights-beta/api/  
-https://gateway.watsonplatform.net/language-translation/api/  
+https://api.us-south.assistant.watson.cloud.ibm.com
 
+https://api.us-east.discovery.watson.cloud.ibm.com
 
 ## Other API Design Resources
 
